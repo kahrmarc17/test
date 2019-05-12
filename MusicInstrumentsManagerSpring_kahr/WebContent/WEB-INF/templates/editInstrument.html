@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:include="~{includes/bootstrap :: bootstrapMeta}" th:remove="tag" />
+	<title>Music Instrument Manager</title>
+	<div th:include="~{includes/bootstrap :: bootstrapCSS}" th:remove="tag" />
+	<link href="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container" role="main">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<form class="form-horizontal" method="post" th:action="${instrument} ? @{/editInstrument(id=${instrument.id})} : @{/addInstrument}">
+					<fieldset>
+						<legend th:text="${instrument}? 'Change Instrument' : 'New Instrument'">New Instrument</legend>				
+						
+						<!-- --------------  id ---------------- -->
+						<div class="form-group">
+							<label for="inputid" class="col-md-2 control-label">ID</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputid" type="text" name="id"
+									th:value="${instrument} ? ${instrument.id}" th:readonly="${instrument}">	
+							</div>
+						</div>
+ 
+						<!-- --------------  category ---------------- -->
+						<div class="form-group">
+							<label for="inputcategory" class="col-md-2 control-label">Category</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputcategory" type="text"
+									name="category" th:value="${instrument} ? ${instrument.category}">
+							</div>
+						</div>
+ 
+						<!-- --------------  name ---------------- -->
+						<div class="form-group">
+							<label for="inputname" class="col-md-2 control-label">Name</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputname" type="text"
+									name="name" th:value="${instrument} ? ${instrument.name}">
+							</div>
+						</div>
+						
+						<!-- --------------  description ---------------- -->
+						<div class="form-group">
+							<label for="inputdescription" class="col-md-2 control-label">Description</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputdescription" type="text" name="description"
+									th:value="${instrument} ? ${instrument.description}">
+							</div>
+						</div>
+						
+						<!-- --------------  price  ---------------- -->
+						<div class="form-group">
+							<label for="inputprice" class="col-md-2 control-label">Price (Euro)</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputprice" type="text" placeholder="0.00" name="price"
+									th:value="${instrument} ? ${instrument.price}">
+							</div>
+						</div>
+ 
+						<!-- --------------  dateofavailability ---------------- -->
+						<div class="form-group">
+							<label for="inputdate" class="col-md-2 control-label">Date</label>
+							<div class="col-md-10">
+								<input class="form_datetime" id="inputdate" placeholder="Date"
+									type="text" readonly name="dateofavailability" th:value="${instrument} ? ${#dates.format(instrument.dateofavailability, 'dd.MM.yyyy')}">
+							</div>
+						</div>
+						
+						<!-- --------------  weight ---------------- -->
+				 		<div class="form-group">
+							<label for="inputweight" class="col-md-2 control-label">Weight (kg)</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputweight" type="text" placeholder="0.00" name="weight"
+									th:value="${instrument} ? ${instrument.weight}">
+							</div>
+						</div>  
+						
+						
+							<!-- --------------  amount ---------------- -->
+				 		<div class="form-group">
+							<label for="inputamount" class="col-md-2 control-label">Amount</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputamount" type="text" placeholder="1-1000" name="amount"
+									th:value="${instrument} ? ${instrument.amount}">
+							</div>
+						</div>  
+						
+		
+ 
+						<!-- --------------  buttons ---------------- -->
+						<div class="form-group">
+							<div class="col-md-10 col-md-offset-2">
+								<button type="submit" class="btn btn-primary">OK</button>
+								<a href="listInstruments" class="btn btn-default">Cancel</a>
+							</div>
+						</div>
+
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<!--  End of container -->
+	<div th:include="~{includes/bootstrap :: bootstrapJS}" th:remove="tag" />
+
+	<!-- JS for Datetime picker -->
+	<script type="text/javascript" src="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+
+	<script>
+		$(function () {
+
+			$(".form_datetime").datetimepicker({
+				format: "dd.mm.yyyy",
+				autoclose: true,
+				todayBtn: true,
+				pickerPosition: "bottom-left",
+				minView: 2
+			});
+
+		});
+	</script>
+
+</body>
+
+</html>
